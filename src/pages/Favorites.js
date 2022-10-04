@@ -7,7 +7,7 @@ class Favorites extends React.Component {
     // const {  } = this.props;
     return (
       <div data-testid="page-favorites">
-        fsfs
+        rsrd
       </div>
     );
   }

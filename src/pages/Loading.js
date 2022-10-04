@@ -2,18 +2,18 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 // import './Card.css';
 
-class NotFound extends React.Component {
+class Loading extends React.Component {
   render() {
     // const {  } = this.props;
     return (
-      <div data-testid="page-not-found">
-        Page Not Found
+      <div data-testid="page-album">
+        Carregando...
       </div>
     );
   }
 }
 
-NotFound.propTypes = {
+Loading.propTypes = {
 
 };
-export default NotFound;
+export default Loading;

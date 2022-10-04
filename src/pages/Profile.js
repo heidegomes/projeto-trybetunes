@@ -1,4 +1,5 @@
 import React from 'react';
+
 // import PropTypes from 'prop-types';
 // import './Card.css';
 
@@ -7,7 +8,7 @@ class Profile extends React.Component {
     // const {  } = this.props;
     return (
       <div data-testid="page-profile">
-        fsfs
+        fdfd
       </div>
     );
   }
