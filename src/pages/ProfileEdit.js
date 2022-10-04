@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../components/Header';
 // import PropTypes from 'prop-types';
 // import './Card.css';
 
@@ -7,7 +8,7 @@ class ProfileEdit extends React.Component {
     // const {  } = this.props;
     return (
       <div data-testid="page-profile-edit">
-        fdfd
+        <Header />
       </div>
     );
   }

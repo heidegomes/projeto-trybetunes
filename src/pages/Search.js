@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Header from '../components/Header';
 
 class Search extends React.Component {
   constructor() {
@@ -35,9 +35,10 @@ class Search extends React.Component {
   // };
 
   render() {
-    const { nameArtist, isDisabled } = this.props;
+    const { nameArtist, isDisabled } = this.state;
     return (
       <div data-testid="page-search">
+        <Header />
         <form>
           <label htmlFor="Artista">
             <input
@@ -65,8 +66,4 @@ class Search extends React.Component {
   }
 }
 
-Search.propTypes = {
-  nameArtist: PropTypes.string.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
-};
 export default Search;

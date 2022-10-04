@@ -1,29 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Favorites from '../pages/Favorites';
-import Profile from '../pages/Profile';
-import Search from '../pages/Search';
 
 class Header extends React.Component {
   render() {
     // const {  } = this.props;
     return (
       <header data-testid="header-component">
-        <nav data-testid="link-to-search">
-          <Link to="/Search">
-            <Search />
+        <nav>
+          <Link to="/search" data-testid="link-to-search">
             Pesquisa
           </Link>
-        </nav>
-        <nav data-testid="link-to-favorites">
-          <Link to="/Favorites">
-            <Favorites />
+
+          <Link to="/favorites" data-testid="link-to-favorites">
             Favoritos
           </Link>
-        </nav>
-        <nav data-testid="link-to-profile">
-          <Link to="/Profile">
-            <Profile />
+
+          <Link to="/profile" data-testid="link-to-profile">
             Perfil
           </Link>
         </nav>

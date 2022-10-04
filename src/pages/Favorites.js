@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import Header from '../components/Header';
 // import './Card.css';
 
 class Favorites extends React.Component {
@@ -7,13 +7,10 @@ class Favorites extends React.Component {
     // const {  } = this.props;
     return (
       <div data-testid="page-favorites">
-        rsrd
+        <Header />
       </div>
     );
   }
 }
 
-Favorites.propTypes = {
-
-};
 export default Favorites;
