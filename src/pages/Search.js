@@ -1,5 +1,8 @@
 import React from 'react';
+import Card from '../components/Card';
 import Header from '../components/Header';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import Loading from './Loading';
 
 class Search extends React.Component {
   constructor() {
@@ -7,6 +10,9 @@ class Search extends React.Component {
     this.state = {
       nameArtist: '',
       isDisabled: true,
+      isLoading: false,
+      data: [],
+      name: '',
     };
   }
 
@@ -25,43 +31,65 @@ class Search extends React.Component {
     }
   };
 
-  // // salva o nome do artista
-  // handleButtonClick = async () => {
-  //   const { nameArtist } = this.state;
-  //   this.setState({ nameArtist });
-  // //   const { history } = this.props;
-  // //   await createUser({ name: nameArtist });
-  // //   history.push('/search');
-  // };
+  // pesquisa o artista na API
+  handleButtonClick = async () => {
+    const { nameArtist } = this.state;
+    this.setState({ isLoading: true });
+    const data = await searchAlbumsAPI(nameArtist);
+    console.log(data);
+    this.setState({ data, isLoading: false, name: nameArtist, nameArtist: '' });
+  };
 
   render() {
-    const { nameArtist, isDisabled } = this.state;
+    // const { match: { params } } = this.props;
+    const { name, nameArtist, isDisabled, isLoading, data } = this.state;
     return (
       <div data-testid="page-search">
         <Header />
-        <form>
-          <label htmlFor="Artista">
-            <input
-              data-testid="search-artist-input"
-              type="text"
-              name="nameArtist"
-              placeholder="Artista"
-              value={ nameArtist }
-              onChange={ this.onInputChange }
-            />
-          </label>
+        { isLoading
+          ? <Loading />
+          : (
+            <>
+              <form>
+                <label htmlFor="Artista">
+                  <input
+                    data-testid="search-artist-input"
+                    type="text"
+                    name="nameArtist"
+                    placeholder="Artista"
+                    value={ nameArtist }
+                    onChange={ this.onInputChange }
+                  />
+                </label>
 
-          <button
-            data-testid="search-artist-button"
-            disabled={ isDisabled }
-            // onClick={ this.handleButtonClick }
-            type="button"
-          >
-            Pesquisar
-          </button>
-        </form>
+                <button
+                  data-testid="search-artist-button"
+                  disabled={ isDisabled }
+                  onClick={ this.handleButtonClick }
+                  type="button"
+                >
+                  Pesquisar
+                </button>
+              </form>
+              <div>
+                { data && data.length > 0
+                  ? (
+                    <div>
+                      <p>{`Resultado de álbuns de: ${name}`}</p>
+                      {data.map((e) => (
+                        <Card
+                          key={ e.collectionId }
+                          collectionName={ e.collectionName }
+                          collectionId={ e.collectionId }
+                        />
+                      ))}
+                    </div>
+                  )
+                  : <p>Nenhum álbum foi encontrado</p>}
+              </div>
+            </>
+          )}
       </div>
-
     );
   }
 }

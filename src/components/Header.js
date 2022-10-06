@@ -16,7 +16,7 @@ class Header extends React.Component {
     getUser()
       .then(
         (result) => {
-          console.log('result: ', result);
+          // console.log('result login user: ', result);
           this.setState({
             isLoading: true,
             loginUser: result.name,
