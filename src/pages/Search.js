@@ -33,11 +33,12 @@ class Search extends React.Component {
 
   // pesquisa o artista na API
   handleButtonClick = async () => {
-    const { nameArtist } = this.state;
-    this.setState({ isLoading: true });
-    const data = await searchAlbumsAPI(nameArtist);
+    const { nameArtist } = this.state; // pega o input e atualiza o estado para fazer a requisição.
+    this.setState({ isLoading: true });// mostra o loanding enquanto está fazendo a requisisição.
+    const data = await searchAlbumsAPI(nameArtist); // faz requisção
     console.log(data);
-    this.setState({ data, isLoading: false, name: nameArtist, nameArtist: '' });
+    this.setState({ data, isLoading: false, name: nameArtist, nameArtist: '' }); // atualiza os dados da requisição, retira o loanding da tela
+    // atualiza o nome do artista com o que foi digitado no input, limpa o campo do input
   };
 
   render() {
