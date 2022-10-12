@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
+import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import Loading from '../components/Loading';
 // import './Card.css';
 
 class Album extends React.Component {
@@ -12,10 +14,12 @@ class Album extends React.Component {
       artistName: '',
       collectionName: '',
       dataAlbum: [],
+      favorites: [],
+      isLoading: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.handleGetMusics()
       .then(
         (data) => {
@@ -26,6 +30,10 @@ class Album extends React.Component {
         },
         (error) => console.log(error),
       );
+    this.setState({ isLoading: true });
+    const favoriteSongs = await getFavoriteSongs();
+    this.setState({ favorites: favoriteSongs });
+    this.setState({ isLoading: false });
   }
 
   handleGetMusics = async () => {
@@ -37,9 +45,31 @@ class Album extends React.Component {
     return data;
   };
 
-  render() {
-    const { artistName, collectionName, dataAlbum } = this.state;
+  handleFavorite = async ({ target }) => {
+    const { dataAlbum } = this.state;
+    const musicId = target.id;
+    const newMusicList = dataAlbum.filter((m) => m.trackId === Number(musicId));
+    const musicObj = newMusicList[0];
+    this.setState({ isLoading: true });
+    if (target.checked) {
+      await addSong(musicObj);
+      this.setState((prevState) => ({
+        favorites: [...prevState.favorites, musicObj],
+      }));
+      const favoriteSongs = await getFavoriteSongs();
+      this.setState({ favorites: favoriteSongs });
+    } else {
+      await removeSong(musicObj);
+      const { favorites } = this.state;
+      const newFavoriteSongs = favorites
+        .filter((f) => f.trackId !== Number(musicObj.trackId));
+      this.setState({ favorites: newFavoriteSongs });
+    }
+    this.setState({ isLoading: false });
+  };
 
+  render() {
+    const { artistName, collectionName, dataAlbum, isLoading, favorites } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
@@ -52,15 +82,26 @@ class Album extends React.Component {
           ${collectionName}`}
         </p>
         <div>
-          {dataAlbum?.filter((_e, index) => index > 0)
-            .map((e) => (
-              <MusicCard
-                key={ e.trackName }
-                trackName={ e.trackName }
-                previewUrl={ e.previewUrl }
-                // trackId={ e.trackId }
-              />
-            ))}
+          {isLoading
+            ? <Loading />
+            : (
+              <div>
+                {dataAlbum?.filter((_e, index) => index > 0)
+                  .map((e) => (
+                    <MusicCard
+                      key={ e.trackName }
+                      trackName={ e.trackName }
+                      previewUrl={ e.previewUrl }
+                      trackId={ e.trackId }
+                      handleFavorite={ this.handleFavorite }
+                      isChecked={
+                        favorites.length > 0
+                          ? favorites.some((m) => m.trackId === e.trackId) : false
+                      }
+                    />
+                  ))}
+              </div>
+            )}
         </div>
       </div>
     );
