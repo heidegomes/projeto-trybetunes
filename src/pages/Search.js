@@ -3,6 +3,7 @@ import Card from '../components/Card';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
+import '../styles/Search.css';
 
 class Search extends React.Component {
   constructor() {
@@ -45,48 +46,58 @@ class Search extends React.Component {
     // const { match: { params } } = this.props;
     const { name, nameArtist, isDisabled, isLoading, data } = this.state;
     return (
-      <div data-testid="page-search">
+      <div className="Search" data-testid="page-search">
         <Header />
         { isLoading
           ? <Loading />
           : (
             <>
-              <form>
-                <label htmlFor="Artista">
-                  <input
-                    data-testid="search-artist-input"
-                    type="text"
-                    name="nameArtist"
-                    placeholder="Artista"
-                    value={ nameArtist }
-                    onChange={ this.onInputChange }
-                  />
-                </label>
+              <div className="boxSearch">
+                <form className="formSearch">
+                  <label htmlFor="Artista">
+                    <input
+                      data-testid="search-artist-input"
+                      type="text"
+                      name="nameArtist"
+                      placeholder="DIGITE A SUA PESQUISA"
+                      value={ nameArtist }
+                      onChange={ this.onInputChange }
+                      className="inputSearch"
+                    />
+                  </label>
 
-                <button
-                  data-testid="search-artist-button"
-                  disabled={ isDisabled }
-                  onClick={ this.handleButtonClick }
-                  type="button"
-                >
-                  Pesquisar
-                </button>
-              </form>
-              <div>
+                  <button
+                    data-testid="search-artist-button"
+                    disabled={ isDisabled }
+                    onClick={ this.handleButtonClick }
+                    type="button"
+                    className="buttonPesquisar"
+                  >
+                    PESQUISAR
+                  </button>
+                </form>
+              </div>
+              <div className="resultado">
                 { data && data.length > 0
                   ? (
-                    <div>
-                      <p>{`Resultado de álbuns de: ${name}`}</p>
-                      {data.map((e) => (
-                        <Card
-                          key={ e.collectionId }
-                          collectionName={ e.collectionName }
-                          collectionId={ e.collectionId }
-                        />
-                      ))}
+                    <div className="container_card">
+                      <p className="naoEncontrado">
+                        {`Resultado de álbuns para ${name}:`}
+                      </p>
+                      <div className="cards">
+                        {data.map((e) => (
+                          <Card
+                            key={ e.collectionId }
+                            collectionName={ e.collectionName }
+                            collectionId={ e.collectionId }
+                            collectionImg={ e.artworkUrl100 }
+                            artistName={ e.artistName }
+                          />
+                        ))}
+                      </div>
                     </div>
                   )
-                  : <p>Nenhum álbum foi encontrado</p>}
+                  : <p className="naoEncontrado">Nenhum álbum foi encontrado</p>}
               </div>
             </>
           )}

@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.containerHeader {
+  /* border: green 1px solid; */
+  background-color: white;
+  width: 251px;
+  height: 772px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+}
+
+.header {
+  width: 250px;
+  height: 750px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+}
+
+.menu a {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #444955;
+  padding-top: 50px;
+}
+
+.logoHeader {
+  width: 187.19px;
+  height: 104.89px;
+  padding-bottom: 110px;
+}
+
+.nameLogin {
+  padding-top: 160px;
+  font-size: 16px;
+  color: #444955
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Loading from './Loading';
 import { getUser } from '../services/userAPI';
+import '../styles/Header.css';
 
 class Header extends React.Component {
   constructor() {
@@ -34,28 +35,39 @@ class Header extends React.Component {
   render() {
     const { isLoading, loginUser } = this.state;
     return (
-      <header data-testid="header-component">
-        <nav>
-          <Link to="/search" data-testid="link-to-search">
-            Pesquisa
-          </Link>
+      <div className="containerHeader">
+        <header className="header" data-testid="header-component">
+          <img
+            className="logoHeader"
+            src="/logo.jpg"
+            alt="logo"
+            width="187.19px"
+            height="104.89px"
+          />
           &nbsp;
-          <Link to="/favorites" data-testid="link-to-favorites">
-            Favoritos
-          </Link>
+          <nav className="menu">
+            <Link to="/search" data-testid="link-to-search">
+              Pesquisa
+            </Link>
+            &nbsp;
+            <Link to="/favorites" data-testid="link-to-favorites">
+              Favoritos
+            </Link>
+            &nbsp;
+            <Link to="/profile" data-testid="link-to-profile">
+              Perfil
+            </Link>
+          </nav>
           &nbsp;
-          <Link to="/profile" data-testid="link-to-profile">
-            Perfil
-          </Link>
           { !isLoading
             ? <Loading />
             : (
-              <div data-testid="header-user-name">
+              <div className="nameLogin" data-testid="header-user-name">
                 { loginUser }
               </div>
             )}
-        </nav>
-      </header>
+        </header>
+      </div>
     );
   }
 }

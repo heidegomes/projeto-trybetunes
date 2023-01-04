@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: #EFF3F9;
+  background-image: linear-gradient(to bottom right, #003BE5, #00D5E2);;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputLogin {
+  width: 400px;
+  height: 40px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #003BE5;
+  border-radius: 100px;
+  display: flex;
+  text-align: center;
+}
+
+.buttonEntrar {
+  background-color: #003BE5;
+  width: 400px;
+  height: 40px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 100px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.boxForm {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.boxLogin {
+  background-color: white;
+  border-radius: 20px;
+  width: 750px;
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carregando {
+  font-size: 40px;
+  color: #003BE5;
+}
+
+.logo {
+  padding: 60px;
+  width: 187.19px;
+  height: 104.89px;
+}
