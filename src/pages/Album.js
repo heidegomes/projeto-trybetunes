@@ -5,7 +5,7 @@ import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
 import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from '../components/Loading';
-// import './Card.css';
+import '../styles/Album.css';
 
 class Album extends React.Component {
   constructor() {
@@ -69,39 +69,48 @@ class Album extends React.Component {
   };
 
   render() {
-    const { artistName, collectionName, dataAlbum, isLoading, favorites } = this.state;
+    const { artistName, collectionName, dataAlbum, isLoading, favorites, artworkUrl100 } = this.state;
     return (
-      <div data-testid="page-album">
+      <div className="page_album" data-testid="page-album">
         <Header />
-        <p data-testid="artist-name">
-          {`Artista:
-          ${artistName}`}
-        </p>
-        <p data-testid="album-name">
-          {`Álbum:
-          ${collectionName}`}
-        </p>
-        <div>
-          {isLoading
-            ? <Loading />
-            : (
-              <div>
-                {dataAlbum?.filter((_e, index) => index > 0)
-                  .map((e) => (
-                    <MusicCard
-                      key={ e.trackName }
-                      trackName={ e.trackName }
-                      previewUrl={ e.previewUrl }
-                      trackId={ e.trackId }
-                      handleFavorite={ this.handleFavorite }
-                      isChecked={
-                        favorites.length > 0
-                          ? favorites.some((m) => m.trackId === e.trackId) : false
-                      }
-                    />
-                  ))}
-              </div>
-            )}
+        <div className="container_musics">
+          <div className="header_album">
+            <div className="imgAlbumHeader">
+              <img src={ artworkUrl100 } alt="foto do álbum" />
+            </div>
+            <div className="title_album">
+              <p className="collectionNameAlbum" data-testid="album-name">
+                {`
+                ${collectionName}`}
+              </p>
+              <p className="collectionArtistAlbum" data-testid="artist-name">
+                {`
+                ${artistName}`}
+              </p>
+            </div>
+          </div>
+          <div className="musics_list">
+            {isLoading
+              ? <Loading />
+              : (
+                <div>
+                  {dataAlbum?.filter((_e, index) => index > 0)
+                    .map((e) => (
+                      <MusicCard
+                        key={ e.trackName }
+                        trackName={ e.trackName }
+                        previewUrl={ e.previewUrl }
+                        trackId={ e.trackId }
+                        handleFavorite={ this.handleFavorite }
+                        isChecked={
+                          favorites.length > 0
+                            ? favorites.some((m) => m.trackId === e.trackId) : false
+                        }
+                      />
+                    ))}
+                </div>
+              )}
+          </div>
         </div>
       </div>
     );

@@ -1,32 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-// import './Card.css';
+import '../styles/Album.css';
+import { BsSuitHeartFill, BsSuitHeart } from 'react-icons/bs';
 
 class MusicCard extends React.Component {
   render() {
     const { trackName, previewUrl, trackId, isChecked, handleFavorite } = this.props;
 
     return (
-      <div>
-        <p>{ trackName }</p>
+      <div className="musics">
+        <p className="nameMusic">{ trackName }</p>
         <audio data-testid="audio-component" src={ previewUrl } controls>
           <track kind="captions" />
           O seu navegador não suporta o elemento
           <code>audio</code>
         </audio>
-        <label htmlFor="Favorita">
-          Favorita
-          <input
+        <div className="favorite">
+          <BsSuitHeart
             type="checkbox"
             data-testid={ `checkbox-music-${trackId}` }
             name="isGoing"
             value="favorite"
             id={ trackId }
-            onChange={ handleFavorite }
+            onClick={ handleFavorite }
             checked={ isChecked }
           />
-        </label>
+        </div>
+
+
       </div>
     );
   }
